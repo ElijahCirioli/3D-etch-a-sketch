@@ -1,0 +1,72 @@
+#sketch-wrap {
+	position: relative;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	width: 600px;
+	height: 500px;
+}
+#myCanvas {
+	background: radial-gradient(#e0e2e4, #c2c6cc);
+}
+.button {
+	cursor: pointer;
+	border-radius: 5px;
+	border: 2px solid #9c9c9c;
+	background-color: #f2f2f2;
+	color: #616161;
+	outline: none;
+	z-index: 2;
+	position: absolute;
+	width: 36px;
+	height: 36px;
+	line-height: 20px;
+	text-align: center;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	font-size: 20px;
+	font-weight: bold;
+	transition: 0.3s;
+}
+.button:hover {
+	color: #383838;
+	background-color: #e8e8e8;
+}
+#home-button {
+	bottom: 10px;
+	right: 10px;
+	font-size: 18px;
+}
+#zoom-in-button {
+	right: 10px;
+	bottom: 89px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+#zoom-out-button {
+	right: 10px;
+	bottom: 55px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+#trash-button {
+	left: 10px;
+	bottom: 10px;
+	font-size: 18px;
+}
+#eye-button {
+	left: 10px;
+	bottom: 55px;
+}
+#memory-label {
+	color: black;
+	font-family: monospace;
+	font-size: 16px;
+	text-align: left;
+	position: absolute;
+	top: 5px;
+	right: 0;
+	line-height: 20px;
+	height: 20px;
+	width: 110px;
+	margin: 0 0 0 0;
+}
