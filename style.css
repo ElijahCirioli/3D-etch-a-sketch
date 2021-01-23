@@ -1,12 +1,163 @@
+body {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	height: 100%;
+}
 #sketch-wrap {
 	position: relative;
-	margin: 0 0 0 0;
+	margin: 40px auto 30px auto;
 	padding: 0 0 0 0;
 	width: 600px;
 	height: 500px;
+	border: 5px solid #3a5032;
+	border-radius: 4px;
+	background-color: #3a5032;
 }
 #myCanvas {
 	background: radial-gradient(#e0e2e4, #c2c6cc);
+}
+#controls {
+	padding-bottom: 100px;
+	display: flex;
+	flex-direction: row;
+	margin: 0 auto;
+	width: 600px;
+	justify-content: space-around;
+}
+#controls-list {
+	display: block;
+	font-size: 20px;
+	font-family: "Montserrat", serif;
+	line-height: 10px;
+	text-align: center;
+}
+#controls-buttons-wrapper {
+	width: 200px;
+	display: flex;
+	flex-direction: column;
+}
+#controls-binding-wrapper {
+	width: 200px;
+	display: flex;
+	flex-direction: column;
+}
+.binding-wrapper {
+	width: 100%;
+	height: 50px;
+	line-height: 8px;
+	display: flex;
+	flex-direction: row;
+	margin: auto;
+	justify-content: space-between;
+}
+.binding {
+	background-color: #d6d6d6;
+	font-size: 16px;
+	width: 60px;
+	height: 30px;
+	line-height: 30px;
+	border: none;
+	border-radius: 5px;
+	margin: 10px 0 10px 0;
+	padding: 0 0 0 0;
+	cursor: pointer;
+	transition: 0.5s;
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+	outline: none;
+}
+.binding:hover {
+	background-color: #c2c2c2;
+}
+.controls-text {
+	font-size: 14px;
+}
+#default-bindings-button {
+	width: 100%;
+	margin: 5px 0 5px 0;
+	height: 40px;
+}
+#controls-buttons-label {
+	display: block;
+	font-size: 16px;
+	font-family: "Montserrat", serif;
+	line-height: 18px;
+	text-align: center;
+	margin: 8px 0 10px 0;
+	width: 100%;
+}
+#controls-binding-label {
+	display: block;
+	font-size: 20px;
+	font-family: "Montserrat", serif;
+	line-height: 22px;
+	text-align: center;
+	margin: 8px 0 10px 0;
+}
+#controls-buttons {
+	display: grid;
+	height: 120px;
+	grid-template-columns: 60px 60px 60px;
+	grid-template-rows: 60px 60px;
+	margin: 0 auto 20px auto;
+}
+.controls-button {
+	width: 50px;
+	height: 50px;
+	font-size: 16px;
+	font-weight: bold;
+	font-family: "Montserrat", serif;
+	line-height: 30px;
+	text-align: center;
+	margin: 5px 5px;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+	background-color: #d6d6d6;
+	cursor: pointer;
+	transition: 0.5s;
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+}
+.controls-button:hover {
+	background-color: #c2c2c2;
+}
+#slider-wrapper {
+	width: 85%;
+	margin: 5px auto 0 auto;
+	padding: 0 0 0 0;
+}
+#slider {
+	-webkit-appearance: none;
+	width: 100%;
+	height: 15px;
+	background: #d6d6d6;
+	outline: none;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+	border-radius: 4px;
+	border: none;
+}
+#slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 15px;
+	height: 25px;
+	background: #eb4646;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+#slider::-moz-range-thumb {
+	width: 15px;
+	height: 25px;
+	border-radius: 3px;
+	background: #eb4646;
+	cursor: pointer;
 }
 .button {
 	cursor: pointer;

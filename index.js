@@ -23,7 +23,7 @@ controls.keys = {
 };
 
 const MAX_NUM_POINTS = 10000; //maximum number of points in the line
-let line, velocity, cursor, arrows, drawCount, positions, knobs; //declare all important variables
+let line, velocity, cursor, arrows, drawCount, positions, knobs, selectedBinding; //declare all important variables
 
 //run to set everything up
 const init = () => {
@@ -258,40 +258,63 @@ document.getElementById("eye-button").onclick = () => {
 	cursor.visible = !cursor.visible;
 };
 
+/* CONTROLS */
+const default_speed = 0.007;
+let speed = default_speed; //cursor move speed
+const red = new THREE.Color(0xff0000); //arrow active color
+const black = new THREE.Color(0x000000); //arrow inactive color
+
+/* KEY BINDINGS */
+const default_bindings = {
+	PLUSX: 68, //d
+	MINUSX: 65, //a
+	PLUSY: 87, //w
+	MINUSY: 83, //s
+	PLUSZ: 69, //e
+	MINUSZ: 81, //q
+};
+let key_bindings = JSON.parse(JSON.stringify(default_bindings));
+
 //on key press events
 document.onkeydown = (e) => {
 	e = window.event || e;
 	const key = e.keyCode;
 	e.preventDefault();
 
-	const speed = 0.007;
-	const red = new THREE.Color(0xff0000);
-
-	switch (key) {
-		case 87: //w
-			velocity.y = speed;
-			arrows[2].setColor(red);
-			break;
-		case 83: //s
-			velocity.y = -speed;
-			arrows[3].setColor(red);
-			break;
-		case 65: //a
-			velocity.x = -speed;
-			arrows[1].setColor(red);
-			break;
-		case 68: //d
-			velocity.x = speed;
-			arrows[0].setColor(red);
-			break;
-		case 69: //e
-			velocity.z = -speed;
-			arrows[5].setColor(red);
-			break;
-		case 81: //q
-			velocity.z = speed;
-			arrows[4].setColor(red);
-			break;
+	if (selectedBinding) {
+		if (key >= 48 && key <= 90) {
+			selectedBinding.innerHTML = String.fromCharCode(key);
+			key_bindings[selectedBinding.id] = key;
+		}
+		selectedBinding = null;
+		$(".binding").css("background-color", "#d6d6d6");
+	} else {
+		switch (key) {
+			case key_bindings.PLUSY:
+				velocity.y = speed;
+				arrows[2].setColor(red);
+				break;
+			case key_bindings.MINUSY:
+				velocity.y = -speed;
+				arrows[3].setColor(red);
+				break;
+			case key_bindings.MINUSX:
+				velocity.x = -speed;
+				arrows[1].setColor(red);
+				break;
+			case key_bindings.PLUSX:
+				velocity.x = speed;
+				arrows[0].setColor(red);
+				break;
+			case key_bindings.PLUSZ:
+				velocity.z = -speed;
+				arrows[5].setColor(red);
+				break;
+			case key_bindings.MINUSZ:
+				velocity.z = speed;
+				arrows[4].setColor(red);
+				break;
+		}
 	}
 };
 
@@ -301,34 +324,184 @@ document.onkeyup = (e) => {
 	const key = e.keyCode;
 	e.preventDefault();
 
-	const black = new THREE.Color(0x000000);
-
 	switch (key) {
-		case 87: //w
+		case key_bindings.PLUSY:
 			if (velocity.y > 0) velocity.y = 0;
 			arrows[2].setColor(black);
 			break;
-		case 83: //s
+		case key_bindings.MINUSY:
 			if (velocity.y < 0) velocity.y = 0;
 			arrows[3].setColor(black);
 			break;
-		case 65: //a
+		case key_bindings.MINUSX:
 			if (velocity.x < 0) velocity.x = 0;
 			arrows[1].setColor(black);
 			break;
-		case 68: //d
+		case key_bindings.PLUSX:
 			if (velocity.x > 0) velocity.x = 0;
 			arrows[0].setColor(black);
 			break;
-		case 69: //e
+		case key_bindings.PLUSZ:
 			if (velocity.z < 0) velocity.z = 0;
 			arrows[5].setColor(black);
 			break;
-		case 81: //q
+		case key_bindings.MINUSZ:
 			if (velocity.z > 0) velocity.z = 0;
 			arrows[4].setColor(black);
 			break;
 	}
+};
+
+//fake keyboard buttons
+document.getElementById("plus-x").onmousedown = () => {
+	velocity.x = speed;
+	arrows[0].setColor(red);
+};
+document.getElementById("plus-x").onmouseup = () => {
+	if (velocity.x > 0) velocity.x = 0;
+	arrows[0].setColor(black);
+};
+document.getElementById("minus-x").onmousedown = () => {
+	velocity.x = -speed;
+	arrows[1].setColor(red);
+};
+document.getElementById("minus-x").onmouseup = () => {
+	if (velocity.x < 0) velocity.x = 0;
+	arrows[1].setColor(black);
+};
+document.getElementById("plus-y").onmousedown = () => {
+	velocity.y = speed;
+	arrows[2].setColor(red);
+};
+document.getElementById("plus-y").onmouseup = () => {
+	if (velocity.y > 0) velocity.y = 0;
+	arrows[2].setColor(black);
+};
+document.getElementById("minus-y").onmousedown = () => {
+	velocity.y = -speed;
+	arrows[3].setColor(red);
+};
+document.getElementById("minus-y").onmouseup = () => {
+	if (velocity.y < 0) velocity.y = 0;
+	arrows[3].setColor(black);
+};
+document.getElementById("plus-z").onmousedown = () => {
+	velocity.z = -speed;
+	arrows[5].setColor(red);
+};
+document.getElementById("plus-z").onmouseup = () => {
+	if (velocity.z < 0) velocity.z = 0;
+	arrows[5].setColor(black);
+};
+document.getElementById("minus-z").onmousedown = () => {
+	velocity.z = speed;
+	arrows[4].setColor(red);
+};
+document.getElementById("minus-z").onmouseup = () => {
+	if (velocity.z > 0) velocity.z = 0;
+	arrows[4].setColor(black);
+};
+
+//mouse leave events
+document.getElementById("plus-x").onmouseleave = () => {
+	if (velocity.x > 0) velocity.x = 0;
+	arrows[0].setColor(black);
+};
+document.getElementById("minus-x").onmouseleave = () => {
+	if (velocity.x < 0) velocity.x = 0;
+	arrows[1].setColor(black);
+};
+document.getElementById("plus-y").onmouseleave = () => {
+	if (velocity.y > 0) velocity.y = 0;
+	arrows[2].setColor(black);
+};
+document.getElementById("minus-y").onmouseleave = () => {
+	if (velocity.y < 0) velocity.y = 0;
+	arrows[3].setColor(black);
+};
+document.getElementById("plus-z").onmouseleave = () => {
+	if (velocity.z < 0) velocity.z = 0;
+	arrows[5].setColor(black);
+};
+document.getElementById("minus-z").onmouseleave = () => {
+	if (velocity.z > 0) velocity.z = 0;
+	arrows[4].setColor(black);
+};
+
+//touchscreen equivalents
+document.getElementById("plus-x").ontouchstart = () => {
+	velocity.x = speed;
+	arrows[0].setColor(red);
+};
+document.getElementById("plus-x").ontouchend = () => {
+	if (velocity.x > 0) velocity.x = 0;
+	arrows[0].setColor(black);
+};
+document.getElementById("minus-x").ontouchstart = () => {
+	velocity.x = -speed;
+	arrows[1].setColor(red);
+};
+document.getElementById("minus-x").ontouchend = () => {
+	if (velocity.x < 0) velocity.x = 0;
+	arrows[1].setColor(black);
+};
+document.getElementById("plus-y").ontouchstart = () => {
+	velocity.y = speed;
+	arrows[2].setColor(red);
+};
+document.getElementById("plus-y").ontouchend = () => {
+	if (velocity.y > 0) velocity.y = 0;
+	arrows[2].setColor(black);
+};
+document.getElementById("minus-y").ontouchstart = () => {
+	velocity.y = -speed;
+	arrows[3].setColor(red);
+};
+document.getElementById("minus-y").ontouchend = () => {
+	if (velocity.y < 0) velocity.y = 0;
+	arrows[3].setColor(black);
+};
+document.getElementById("plus-z").ontouchstart = () => {
+	velocity.z = -speed;
+	arrows[5].setColor(red);
+};
+document.getElementById("plus-z").ontouchend = () => {
+	if (velocity.z < 0) velocity.z = 0;
+	arrows[5].setColor(black);
+};
+document.getElementById("minus-z").ontouchstart = () => {
+	velocity.z = speed;
+	arrows[4].setColor(red);
+};
+document.getElementById("minus-z").ontouchend = () => {
+	if (velocity.z > 0) velocity.z = 0;
+	arrows[4].setColor(black);
+};
+
+/* EDIT BINDINGS */
+$(".binding").on("click", (e) => {
+	$(".binding").css("background-color", "#d6d6d6");
+	const button = e.target;
+	button.style.backgroundColor = "#eb4646";
+	selectedBinding = button;
+});
+document.getElementById("default-bindings-button").onclick = () => {
+	key_bindings = JSON.parse(JSON.stringify(default_bindings));
+	$(".binding").css("background-color", "#d6d6d6");
+	selectedBinding = null;
+	$(".binding").each((i, e) => {
+		e.innerHTML = String.fromCharCode(key_bindings[e.id]);
+	});
+	speed = default_speed;
+	$("#slider").val(speed * 10000);
+};
+
+/* ADJUST SPEED */
+document.getElementById("slider").onchange = (e) => {
+	speed = e.target.value / 10000;
+};
+document.getElementById("slider").onmousemove = (e) => {
+	speed = e.target.value / 10000;
 };
 
 document.onload = init();

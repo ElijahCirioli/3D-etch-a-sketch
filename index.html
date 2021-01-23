@@ -14,7 +14,6 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
-		<script src="html5kellycolorpicker.min.js"></script>
 
 		<script src="/splash.js"></script>
 
@@ -29,7 +28,7 @@
 	<body>
 		<div id="page-wrap">
 			<div id="header-wrap">
-				<div class="header-title">RAYTRACING</div>
+				<div class="header-title">ETCH A SKETCH</div>
 				<a class="header-logo" href="https://elijahcirioli.com"></a>
 			</div>
 			<div id="nav-spacer"></div>
@@ -53,15 +52,55 @@
 				<button id="eye-button" class="button">👁️</button>
 				<p id="memory-label"></p>
 			</div>
+			<div id="controls">
+				<div id="controls-binding-wrapper">
+					<p id="controls-binding-label"><b>Controls:</b></p>
+					<div id="controls-list">
+						<div class="binding-wrapper">
+							<button class="binding" id="MINUSX">A</button>
+							<p>- X +</p>
+							<button class="binding" id="PLUSX">D</button>
+						</div>
+						<div class="binding-wrapper">
+							<button class="binding" id="MINUSY">S</button>
+							<p>- Y +</p>
+							<button class="binding" id="PLUSY">W</button>
+						</div>
+						<div class="binding-wrapper">
+							<button class="binding" id="MINUSZ">Q</button>
+							<p>- Z +</p>
+							<button class="binding" id="PLUSZ">E</button>
+						</div>
+						<button class="controls-button" id="default-bindings-button">Reset controls</button>
+						<p class="controls-text">Orbit camera: Mouse</p>
+						<p class="controls-text">Orbit camera: Arrow keys</p>
+					</div>
+				</div>
+				<div id="controls-buttons-wrapper">
+					<p id="controls-buttons-label"><b>Sorry the knobs don't work, have some buttons instead.</b></p>
+					<div id="controls-buttons">
+						<button id="minus-z" class="controls-button">-z</button>
+						<button id="plus-y" class="controls-button">+y</button>
+						<button id="plus-z" class="controls-button">+z</button>
+						<button id="minus-x" class="controls-button">-x</button>
+						<button id="minus-y" class="controls-button">-y</button>
+						<button id="plus-x" class="controls-button">+x</button>
+					</div>
+					<p id="controls-buttons-label"><b>Cursor speed</b></p>
+					<div id="slider-wrapper">
+						<input type="range" min="1" max="100" value="70" id="slider" />
+					</div>
+				</div>
+			</div>
 			<script src="index.js" type="module"></script>
+			<footer>
+				<p>
+					©2019 Elijah Cirioli &nbsp;&nbsp;&nbsp;
+					<a class="footer-link" href="https://elijahcirioli.com">Portfolio</a> &nbsp;&nbsp;&nbsp;
+					<a class="footer-link" href="https://elijahcirioli.com/about/">About</a> &nbsp;&nbsp;&nbsp;
+					<a class="footer-link" href="https://elijahcirioli.com/contact/">Contact</a>
+				</p>
+			</footer>
 		</div>
-		<footer>
-			<p>
-				©2019 Elijah Cirioli &nbsp;&nbsp;&nbsp;
-				<a class="footer-link" href="https://elijahcirioli.com">Portfolio</a> &nbsp;&nbsp;&nbsp;
-				<a class="footer-link" href="https://elijahcirioli.com/about/">About</a> &nbsp;&nbsp;&nbsp;
-				<a class="footer-link" href="https://elijahcirioli.com/contact/">Contact</a>
-			</p>
-		</footer>
 	</body>
 </html>
